@@ -1,30 +1,77 @@
-name: Deploy to GitHub Pages
+name: GitHub Pages
+
+# Staging lives on the gh-pages branch:
+#   - main is published at the site root
+#   - each pull request gets its own preview under /pr-<number>/
+# Repo setting: Settings > Pages > Source: Deploy from a branch, gh-pages, / (root).
 
 on:
   push:
     branches: [main]
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
+  pull-requests: write
 
+# Every job pushes to gh-pages, so run them one at a time.
 concurrency:
-  group: pages
+  group: gh-pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  staging:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Stage site files
+        run: |
+          mkdir _site
+          rsync -a --exclude .git --exclude .github --exclude _site ./ _site/
+          touch _site/.nojekyll
+      - uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: .
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          folder: _site
+          branch: gh-pages
+          clean-exclude: pr-*
+
+  preview:
+    # Fork PRs get a read-only token and can't push to gh-pages.
+    if: >
+      github.event_name == 'pull_request' && github.event.action != 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage site files
+        run: |
+          mkdir _site
+          rsync -a --exclude .git --exclude .github --exclude _site ./ _site/
+      - uses: rajyan/preview-pages@v1
+        with:
+          source-dir: _site
+          pr-per-commit: false
+          pr-comment: sticky
+
+  cleanup:
+    if: >
+      github.event_name == 'pull_request' && github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Remove the PR preview
+        run: |
+          rm -rf pr-${{ github.event.number }}
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Remove preview for pr-${{ github.event.number }}"
+            git push
+          fi
