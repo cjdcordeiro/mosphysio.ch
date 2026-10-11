@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "assets/site.css"
+        ],
+        "createdAt": "2026-10-11T20:21:26.015Z",
+        "reason": "Claude: .rdv sets border-radius: 0, the 6px top edge is a square terrace coping, no rounded corner exists"
+      }
+    ]
+  }
+}
