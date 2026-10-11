@@ -3,6 +3,8 @@ name: GitHub Pages
 # Staging lives on the gh-pages branch:
 #   - main is published at the site root
 #   - each pull request gets its own preview under /pr-<number>/
+#   - a manual run (Actions > GitHub Pages > Run workflow) on main redeploys
+#     staging; on any other branch it publishes /branch/<branch-name>/
 # Repo setting: Settings > Pages > Source: Deploy from a branch, gh-pages, / (root).
 
 on:
@@ -23,7 +25,7 @@ concurrency:
 
 jobs:
   staging:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +38,27 @@ jobs:
         with:
           folder: _site
           branch: gh-pages
-          clean-exclude: pr-*
+          clean-exclude: |
+            pr-*
+            branch
+
+  branch-preview:
+    if: github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage site files
+        run: |
+          mkdir _site
+          rsync -a --exclude .git --exclude .github --exclude _site ./ _site/
+      - id: preview
+        uses: rajyan/preview-pages@v1
+        with:
+          source-dir: _site
+          target-dir: branch
+          branch-per-commit: false
+      - name: Show preview link
+        run: echo "Preview at https://${{ steps.preview.outputs.pages-url }}/" >> "$GITHUB_STEP_SUMMARY"
 
   preview:
     # Fork PRs get a read-only token and can't push to gh-pages.
