@@ -278,7 +278,7 @@ b, strong { font-weight: 700; }
   opacity: 1;
 }
 .vine-rows li > * { grid-column: 2; }
-.vine-rows img { grid-column: 1; grid-row: 1 / span 4; width: 64px; height: 64px; object-fit: contain; padding: 10px 8px; border-radius: 50%; background: var(--stone); filter: grayscale(1) contrast(1.15); margin-top: -4px; padding: 6px 4px; }
+.vine-rows img { grid-column: 1; grid-row: 1 / span 4; width: 64px; height: auto; margin-top: 2px; }
 .vine-rows img.lpf { grid-column: 2; grid-row: auto; width: 170px; height: auto; padding: 0; border-radius: 0; background: none; margin: 16px 0 0; filter: brightness(0) invert(1); opacity: .9; }
 .vine-rows h3 { font-size: clamp(1.3rem, 1.9vw, 1.55rem); margin-bottom: 10px; color: var(--on-dark); }
 .vine-rows p { color: var(--on-dark-soft); max-width: 60ch; }
@@ -455,7 +455,7 @@ dialog[open] { animation: lift .45s var(--ease-out); }
   .hero-actions .btn { flex: 1 1 100%; }
   .offers-head .btn { width: 100%; }
   .vine-rows li { grid-template-columns: 48px 1fr; column-gap: 16px; }
-  .vine-rows img:not(.lpf) { width: 48px; height: 48px; padding: 7px 6px; }
+  .vine-rows img:not(.lpf) { width: 48px; }
   .vine-rows img.lpf { width: 150px; }
   .faq details p { padding-right: 0; }
 }
