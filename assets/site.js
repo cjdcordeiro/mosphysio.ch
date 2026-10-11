@@ -62,6 +62,9 @@
   // Altimeter: Aubonne (502 m) at the top of the page, the lake (372 m) at the bottom.
   var alti = document.querySelector(".altimeter");
   var altValue = alti && alti.querySelector(".alt-value");
+  var mini = document.querySelector(".alt-mini");
+  var miniValue = mini && mini.querySelector(".alt-value");
+  var miniName = mini && mini.querySelector(".alt-name");
   var links = alti ? Array.prototype.slice.call(alti.querySelectorAll("a")) : [];
   var sections = links.map(function (a) { return document.getElementById(decodeURIComponent(a.getAttribute("href").slice(1))); });
   var ticking = false;
@@ -82,6 +85,8 @@
       if (s && s.getBoundingClientRect().top <= mid) current = i;
     });
     links.forEach(function (a, i) { a.classList.toggle("is-here", i === current); });
+    if (miniValue) miniValue.textContent = altValue.textContent;
+    if (miniName) miniName.textContent = current >= 0 ? links[current].textContent : "Aubonne";
 
     // Read the ground under the gauge to pick light or dark ink.
     alti.style.visibility = "hidden";
