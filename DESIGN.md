@@ -19,6 +19,8 @@ colors:
   ink-soft: "#435247"
   on-dark: "#eef2ea"
   on-dark-soft: "#b8c8bb"
+  on-lake: "#e6eef1"
+  on-lake-strong: "#f2f7f8"
   on-lake-soft: "#a9c3cf"
 typography:
   display:
@@ -167,7 +169,7 @@ A landscape palette of cool stone grounds, deep vine and lake bands, and two str
 - **Spring Vine Leaf** (sage): the sage terrace band and icon-button hover.
 - **Wall Light / Mid / Dark** (wall-light, wall-mid, wall-dark): the stone riser of each terrace wall. It darkens as the hillside descends toward vine and lake.
 - **Vine Ink** (ink) and **Soft Ink** (ink-soft): text on light grounds, with soft ink for ledes, sublines, and secondary copy.
-- **On-Dark** (on-dark), **On-Dark Soft** (on-dark-soft), **On-Lake Soft** (on-lake-soft): text on vine and lake bands, from primary down to secondary.
+- **On-Dark** (on-dark), **On-Dark Soft** (on-dark-soft), **On-Lake** (on-lake), **On-Lake Strong** (on-lake-strong), **On-Lake Soft** (on-lake-soft): text on vine and lake bands, from primary down to secondary.
 
 ### Named Rules
 **The Booking Mint Rule.** Mint fills only actions that book an appointment: the online agenda and the booking phone call. The only other uses are the focus ring and the selection highlight. Never use it as decoration, a heading colour, or a section ground.
