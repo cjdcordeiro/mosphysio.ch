@@ -17,7 +17,7 @@ OWN-WORLD: Grounds of cool molasse stone (#e3e6dd), deep vine green (#1f3b2c) an
 
 STORY: The visitor sees the practice's own landscape, understands it treats the whole body and teaches movement, meets Sara and Alana, sees prices, and books.
 
-FIRST VIEWPORT: Left 5/12: H1 at display scale, subline, two actions (Agenda en ligne opens booking, phone tel link). Right 7/12: the hillside photo bleeding to the edge, stepped bottom edge, the Annonce set as a vineyard plot sign on it.
+FIRST VIEWPORT: Left 5/12: H1 at display scale, subline, two actions (Agenda en ligne opens booking, phone tel link). Right half: the hillside photo bleeding to the edge, standing on a terrace ledge that runs on under it while the ground drops away beneath the text column (the step aligns with the photo's left edge), the Annonce set as a vineyard plot sign on it.
 
 FORM: Vineyard terraces, 7th on the ordered list, seed 058db2fe. Signature: a side altimeter (502 m Aubonne down to 372 m Léman) tracks scroll and doubles as section nav; on phones a live readout with the current section sits in the header.
 
