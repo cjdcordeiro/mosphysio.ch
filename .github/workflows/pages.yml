@@ -32,7 +32,7 @@ jobs:
       - name: Stage site files
         run: |
           mkdir _site
-          rsync -a --exclude .git --exclude .github --exclude _site ./ _site/
+          rsync -a --exclude .git --exclude .github --exclude .impeccable --exclude PRODUCT.md --exclude DESIGN.md --exclude _site ./ _site/
           touch _site/.nojekyll
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -50,7 +50,7 @@ jobs:
       - name: Stage site files
         run: |
           mkdir _site
-          rsync -a --exclude .git --exclude .github --exclude _site ./ _site/
+          rsync -a --exclude .git --exclude .github --exclude .impeccable --exclude PRODUCT.md --exclude DESIGN.md --exclude _site ./ _site/
       - id: preview
         uses: rajyan/preview-pages@v1
         with:
@@ -71,7 +71,7 @@ jobs:
       - name: Stage site files
         run: |
           mkdir _site
-          rsync -a --exclude .git --exclude .github --exclude _site ./ _site/
+          rsync -a --exclude .git --exclude .github --exclude .impeccable --exclude PRODUCT.md --exclude DESIGN.md --exclude _site ./ _site/
       - uses: rajyan/preview-pages@v1
         with:
           source-dir: _site
